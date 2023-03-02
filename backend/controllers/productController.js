@@ -22,14 +22,12 @@ exports.newProduct = async (req, res, next) => {
 }
 
 
-
-
 // Show all product => /api/v1/product    ==============> PAGINATIONS
 
 exports.getProducts = async (req, res, next) => {
     try {
         // return next(new ErrorHandler('My Error', 400));
-        const resPerPage = 8;
+        const resPerPage = 4;
         const productsCount = await Product.countDocuments();
         const apiFeatures = new APIFeatures(Product.find(), req.query)
             .search()
@@ -48,6 +46,7 @@ exports.getProducts = async (req, res, next) => {
             res.status(200).json({
                 success: true,
                 productsCount,
+                resPerPage,
                 products
             })
         }, 2000);
